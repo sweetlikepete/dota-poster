@@ -9,6 +9,7 @@ const fs = require("fs-extra");
 const request = require("request");
 const rgbToHsl = require("rgb-to-hsl");
 const jimp = require("jimp");
+const imageColorAverage = require("image-average-color");
 
 
 const scrapePage = async function(url, selector = "div.thumb", first = true){
@@ -74,10 +75,21 @@ const getDominantHue = async function(filename){
     return new Promise((resolve) => {
 
         dominantColor(filename, {format: "rgb"}, (err, color) => {
+        // imageColorAverage(filename, (err, color) => {
 
-            const hsl = rgbToHsl(...color);
+            if(err){
+
+                console.log(err);
+                console.log(filename);
+
+            }
+
+            console.log([err, color]);
+
+            const hsl = rgbToHsl(color[0], color[1], color[2]);
 
             resolve(hsl[0]);
+
         });
 
     });
@@ -119,7 +131,7 @@ const createPoster = async function({
 
             });
 
-            image.write(filename);
+            image.quality(80).write(filename);
 
             console.log(`Created poster: ${ filename }`);
 
@@ -177,14 +189,14 @@ const getAllImages = async function(){
         width: 13,
         height: 9,
         images,
-        filename: path.join(process.cwd(), "wide.png")
+        filename: path.join(process.cwd(), "wide.jpg")
     });
 
     await createPoster({
         width: 9,
         height: 13,
         images,
-        filename: path.join(process.cwd(), "square.png")
+        filename: path.join(process.cwd(), "square.jpg")
     });
 
 };

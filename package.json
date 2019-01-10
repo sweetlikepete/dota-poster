@@ -9,8 +9,11 @@
     "cheerio": "^1.0.0-rc.2",
     "dominant-color": "^0.0.1",
     "fs-extra": "^7.0.1",
+    "image-average-color": "^1.0.0",
     "jimp": "^0.5.6",
     "node-fetch": "^2.3.0",
+    "png-to-jpeg": "^1.0.1",
+    "pngjs": "^3.3.3",
     "request": "^2.88.0",
     "rgb-to-hsl": "^0.0.3"
   }
